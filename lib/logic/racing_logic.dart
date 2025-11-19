@@ -4,7 +4,6 @@ void main() {
   GameRound round = GameRound();
   round.setCars("pobi,crong,honux");
 
-  // 확인용 출력
   print("참가자 수: ${round.carList.length}");
   print("첫 번째 차: ${round.carList[0].name}");
 }
@@ -41,5 +40,19 @@ class GameRound {
     for (Car car in carList) {
       car.move();
     }
+  }
+
+  String getWinners() {
+    carList.sort((a, b) => b.position - a.position);
+    int maxPosition = carList[0].position;
+    List<String> winners = [];
+
+    for (Car car in carList) {
+      if (car.position == maxPosition) {
+        winners.add(car.name);
+      }
+    }
+
+    return winners.join(", ");
   }
 }
