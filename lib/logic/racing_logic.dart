@@ -36,4 +36,10 @@ class GameRound {
       carList.add(new Car(name));
     }
   }
+
+  void carsMove() {
+    for (Car car in carList) {
+      car.move();
+    }
+  }
 }
