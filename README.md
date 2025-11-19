@@ -1,16 +1,132 @@
-# flutter_racingcar_8
+# 🏎️ 자동차 경주 게임 (Java Racing Car)
 
-A new Flutter project.
+## 🎯 오픈미션 자동차 경주 앱 목표
 
-## Getting Started
+- gui 사용하여 자동차 경주를 조금더 직관적이게 즐길수 있는것이 목표
+- 오픈미션 제출마지막 날까지 꾸준히 플러터 학습 목표
+- 자바로 미션을 진행했을때와 다르게 플러터의 내장함수들과 다트만의 로직을 적극 사용.
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## 🎯 오픈미션 자동차 경주 구현 목록
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Car 클래스 뼈대 생성
+- 자동차 이름 검증 로직 추가
+- 자동차 이동 로직 구현
+- GameRound 클래스 및 참가자 등록
+- 라운드 진행 로직 구현
+- 우승자 판별 로직 구현
+- 게임 화면 및 도로 배경 구성
+- 자동차 위젯 디자인
+- 로직과 UI 연결
+- 게임 루프 구현
+- 게임 종료 및 우승자 팝업
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## 🎯 2주차 개인적 학습 목표
+
+- **피드백 반영:** 1주차 공통 피드백을 적극적으로 수용하고 코드에 반영한다.
+- **TDD 및 테스트:** 테스트 도구(JUnit, AssertJ)의 사용법을 익히고, TDD 기반의 개발을 목표로 한다.
+- **단일 책임 원칙(SRP):** 각 클래스와 함수가 반드시 하나의 역할만 수행하도록 설계한다.
+
+---
+
+## 🚀 기능 요구사항 정리
+
+### 1. 입력
+
+- [ ] 경주할 자동차 이름들을 입력받는다. (이름은 쉼표(`,`)를 기준으로 구분)
+- [ ] 시도할 회수(경주 횟수)를 입력받는다.
+
+### 2. 게임 로직
+
+- [ ] 각 자동차는 전진 또는 정지할 수 있다.
+- [ ] **전진 조건:** 0에서 9 사이의 무작위 값을 구한 후, 값이 **4 이상**일 경우 전진한다.
+- [ ] 경주가 완료되면 우승자를 판별한다. (우승자는 한 명 이상일 수 있다.)
+
+### 3. 출력
+
+- [ ] 차수별 실행 결과를 출력한다.
+- [ ] 단독 우승자일 경우 이름을 출력한다.
+- [ ] 공동 우승자일 경우 쉼표(`,`)를 이용하여 구분하여 출력한다.
+
+### 4. 예외 처리 (Exception)
+
+사용자가 잘못된 값을 입력할 경우 `IllegalArgumentException`을 발생시키고 애플리케이션을 종료한다.
+
+- [ ] 자동차 이름이 입력되지 않은 경우
+- [ ] 자동차 이름이 **5글자**를 초과하는 경우
+- [ ] 경주 횟수가 숫자가 아닌 경우
+- [ ] 경주 횟수가 음수이거나 빈 값인 경우
+- [ ] (리팩토링 예정) 자동차 이름이 중복될 경우
+
+---
+
+## ✅ 구현할 기능 목록
+
+### Domain & Service
+
+- [ ] **자동차(Car):** 이름과 현재 위치 상태를 가지는 클래스
+- [ ] **자동차 그룹(Cars):** 경주에 참여하는 자동차들을 컬렉션으로 관리
+- [ ] **경주(Racing):** 랜덤 수 생성 및 게임 진행 로직 관리
+- [ ] **검증(Validation):** 이름 길이, 숫자 여부 등 입력값 유효성 검사
+
+### Input/Output (View)
+
+- [ ] **입력(UserInput):** 자동차 이름 및 경주 횟수 입력 처리
+- [ ] **출력(RacingOutput):** 경주 진행 상황 및 최종 우승자 출력
+
+### Application
+
+- [ ] **메인(Application):** 전체 프로그램 흐름 제어
+
+---
+
+## 🛠️ 클래스 설계 및 역할 (Class Responsibility)
+
+| 클래스            | 역할 및 책임                                                              |
+|----------------|----------------------------------------------------------------------|
+| `Car`          | 자동차의 이름(name)과 위치(position) 상태 관리                                    |
+| `Cars`         | `List<Car>` 관리, 사용자 입력을 파싱하여 자동차 객체 생성 및 저장                          |
+| `Validation`   | 자동차 이름 길이 체크, 경주 횟수 숫자/범위 체크                                         |
+| `Racing`       | 경주 횟수 관리, 랜덤 수 생성(`getPositionRandomNumber`), 우승자 판별(`resultWiners`) |
+| `UserInput`    | 자동차 이름 입력(`carsNameInput`), 경주 횟수 입력(`racinRoundInput`)              |
+| `RacingOutput` | 게임 진행 상황 출력(`racingRuningOuput`), 우승자 안내(`racingResultOutput`)       |
+
+---
+
+## 📂 파일 구조
+
+```text
+java-racingcar-8/
+├── src/
+│   ├── main/
+│   │   └── java/
+│   │       └── racingcar/
+│   │           ├── Application.java
+│   │           ├── Car.java
+│   │           ├── Cars.java
+│   │           ├── Racing.java
+│   │           ├── RacingOutput.java
+│   │           ├── UserInput.java
+│   │           └── Validation.java
+│   └── test/
+│       └── java/
+│           └── racingcar/
+│               ├── ApplicationTest.java
+│               ├── CarTest.java
+│               ├── CarsTest.java
+│               ├── RacingTest.java
+│               └── ValidationTest.java
+```
+
+---
+
+## ♻️ 리팩토링 계획
+
+- 기능 구현 후 다음 사항들을 중점적으로 개선할 예정입니다.
+- 중복 이름 처리: 자동차 이름 입력 시 중복된 이름이 있을 경우 에러 처리 로직 추가
+- 코드 컨벤션 및 깊이(Depth) 확인: 들여쓰기(Depth)가 2를 넘지 않도록 로직 개선 및 역할 분리 재확인
+- 메서드 시그니처 개선: userInputSaveCollection 등 리턴 타입이나 파라미터가 적절한지(void 등) 검토
+- Clean Code: 불필요한 주석이나 사용되지 않는 코드 제거
