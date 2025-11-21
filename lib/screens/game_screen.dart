@@ -13,6 +13,7 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   final GameRound gameRound = GameRound();
+  final int finishLine = 15;
   Timer? _timer;
 
   @override
@@ -28,12 +29,43 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void startRace() {
+    if (_timer != null && _timer!.isActive) return;
+
     _timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
       setState(() {
         gameRound.carsMove();
       });
-      print("현재 위치 : ${gameRound.carList.map((e) => e.position)}");
+      bool isGameFinished = gameRound.carList.any(
+        (car) => car.position >= finishLine,
+      );
+
+      if (isGameFinished) {
+        timer.cancel();
+        _showWinnerDialog();
+      }
     });
+  }
+
+  void _showWinnerDialog() {
+    String winners = gameRound.getWinners();
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("🏁 경기 종료! 🏁"),
+          content: Text("우승자는... \n\n🎉 $winners 🎉 \n\n입니다!"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("확인"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
