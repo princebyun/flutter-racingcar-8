@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_racingcar_8/logic/racing_logic.dart';
 import 'package:flutter_racingcar_8/widgets/car_widget.dart';
@@ -11,11 +13,27 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   final GameRound gameRound = GameRound();
+  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
     gameRound.setCars("자동차1,자동차2,자동차3");
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void startRace() {
+    _timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+      setState(() {
+        gameRound.carsMove();
+      });
+      print("현재 위치 : ${gameRound.carList.map((e) => e.position)}");
+    });
   }
 
   @override
@@ -41,6 +59,12 @@ class _GameScreenState extends State<GameScreen> {
               ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          startRace();
+        },
+        child: const Icon(Icons.play_arrow),
       ),
     );
   }
