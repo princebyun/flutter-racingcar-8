@@ -53,8 +53,8 @@ class _GameScreenState extends State<GameScreen> {
       barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
-          title: const Text("🏁 경기 종료! 🏁"),
-          content: Text("우승자는... \n\n🎉 $winners 🎉 \n\n입니다!"),
+          title: const Text("경기 종료!"),
+          content: Text("우승자는 \n\n🎉 $winners 🎉 \n\n입니다!"),
           actions: [
             TextButton(
               onPressed: () {
