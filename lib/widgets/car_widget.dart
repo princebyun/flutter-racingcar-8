@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CarWidget extends StatelessWidget {
-  final String name;
+  final String carName;
   final Color carColor;
 
-  const CarWidget({Key? key, required this.name, required this.carColor})
+  const CarWidget({Key? key, required this.carName, required this.carColor})
     : super(key: key);
 
   @override
@@ -14,7 +14,7 @@ class CarWidget extends StatelessWidget {
       children: [
         Icon(Icons.directions_car_filled, color: carColor, size: 60),
         Text(
-          name,
+          carName,
           style: TextStyle(
             color: Colors.white,
             fontSize: 16,
