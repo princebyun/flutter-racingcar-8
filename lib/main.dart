@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_racingcar_8/screens/game_screen.dart';
+import 'package:flutter_racingcar_8/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: GameScreen(),
+      home: HomeScrean(),
     );
   }
 }

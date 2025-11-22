@@ -5,7 +5,9 @@ import 'package:flutter_racingcar_8/logic/racing_logic.dart';
 import 'package:flutter_racingcar_8/widgets/car_widget.dart';
 
 class GameScreen extends StatefulWidget {
-  const GameScreen({super.key});
+  final String userCarInput;
+
+  const GameScreen({super.key, required this.userCarInput});
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -19,7 +21,7 @@ class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
     super.initState();
-    gameRound.setCars("자동차1,자동차2,자동차3");
+    gameRound.setCars(widget.userCarInput);
   }
 
   @override
@@ -54,7 +56,7 @@ class _GameScreenState extends State<GameScreen> {
       builder: (context) {
         return AlertDialog(
           title: const Text("경기 종료!"),
-          content: Text("우승자는 \n\n🎉 $winners 🎉 \n\n입니다!"),
+          content: Text("우승자는 $winners 입니다!"),
           actions: [
             TextButton(
               onPressed: () {
@@ -92,11 +94,27 @@ class _GameScreenState extends State<GameScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          startRace();
-        },
-        child: const Icon(Icons.play_arrow),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton(
+            heroTag: "btn1",
+            onPressed: () {
+              startRace();
+            },
+            backgroundColor: Colors.green,
+            child: const Icon(Icons.play_arrow),
+          ),
+          const SizedBox(height: 10),
+          FloatingActionButton(
+            heroTag: "btn2",
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            backgroundColor: Colors.redAccent,
+            child: const Icon(Icons.refresh),
+          ),
+        ],
       ),
     );
   }
