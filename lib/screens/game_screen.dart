@@ -33,7 +33,7 @@ class _GameScreenState extends State<GameScreen> {
   void startRace() {
     if (_timer != null && _timer!.isActive) return;
 
-    _timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
+    _timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       setState(() {
         gameRound.carsMove();
       });
