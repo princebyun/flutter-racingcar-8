@@ -73,26 +73,44 @@ class _GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.grey,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            for (int i = 0; i < gameRound.carList.length; i++)
-              Expanded(
+      backgroundColor: Color(0xFF2AC1BC),
+
+      appBar: AppBar(
+        title: const Text("Game Start"),
+        backgroundColor: Color(0xFF2AC1BC),
+        foregroundColor: Colors.white,
+        elevation: 0,
+      ),
+
+      body: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          for (int i = 0; i < gameRound.carList.length; i++)
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    right: BorderSide(
+                      color: Colors.white.withOpacity(0.3),
+                      width: 2,
+                    ),
+                  ),
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CarWidget(
                       carName: gameRound.carList[i].name,
-                      carColor: i % 2 == 0 ? Colors.red : Colors.blue,
+                      carColor: i % 2 == 0
+                          ? Colors.redAccent
+                          : Colors.blueAccent,
                     ),
                     SizedBox(height: gameRound.carList[i].position * 50.0 + 50),
                   ],
                 ),
               ),
-          ],
-        ),
+            ),
+        ],
       ),
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
@@ -102,7 +120,7 @@ class _GameScreenState extends State<GameScreen> {
             onPressed: () {
               startRace();
             },
-            backgroundColor: Colors.green,
+            backgroundColor: Colors.white,
             child: const Icon(Icons.play_arrow),
           ),
           const SizedBox(height: 10),
@@ -111,8 +129,8 @@ class _GameScreenState extends State<GameScreen> {
             onPressed: () {
               Navigator.pop(context);
             },
-            backgroundColor: Colors.redAccent,
-            child: const Icon(Icons.refresh),
+            backgroundColor: Colors.white,
+            child: const Icon(Icons.arrow_back, color: Colors.black),
           ),
         ],
       ),

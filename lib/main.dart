@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_racingcar_8/screens/game_screen.dart';
 import 'package:flutter_racingcar_8/screens/home_screen.dart';
 
 void main() {
